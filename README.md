@@ -18,7 +18,9 @@ Sample Input
 5 4
 1 1 3 3
 1 4 2 1 2
+
 Sample Output
 -1 -1 -1 1 3
+
 Explanation
 Vertices 1, 2 and 3 do not have any ancestors having the same color as them. The nearest required ancestors for vertices 4 and 5 are vertices 1 and 3 respectively.
