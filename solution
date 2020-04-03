@@ -1,39 +1,45 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <stack>
+#include <vector>
+#define ff first
+#define ss second
+#define pb push_back
+#define MOD (1000000007LL)
+#define LEFT(n) (2*(n))
+#define RIGHT(n) (2*(n)+1)
 using namespace std;
-const int MAXN = 100005;
-vector <int> G[MAXN], col_list[MAXN];
-int col[MAXN], ans[MAXN];
-void dfs(int pos)
-{
-	if(col_list[col[pos]].empty())
-		ans[pos] = -1;
-	else
-		ans[pos] = col_list[col[pos]].back();
-	col_list[col[pos]].push_back(pos);
-	for (int i = 0; i < G[pos].size(); ++i)
-	{
-		dfs(G[pos][i]);
-	}
-	col_list[col[pos]].pop_back();
+typedef long long ll;
+typedef pair<int, int> ii;
+typedef pair<int, ii> iii;
+#define SIZE 100005
+int n, C, col[SIZE], ans[SIZE];
+vector<int> adj[SIZE];
+stack<int> st[SIZE];
+void dfs(int v){
+    if(st[col[v]].empty()){
+        ans[v] = -1;
+    }
+    else{
+        ans[v] = st[col[v]].top();
+    }
+    st[col[v]].push(v);
+    for(int i=0;i<(int)adj[v].size();i++){
+        int vv = adj[v][i];
+        dfs(vv);
+    }
+    st[col[v]].pop();
 }
-int main()
-{
-	int n,c;
-	cin>>n>>c;
-	for (int i = 2; i <= n; ++i)
-	{
-		int par;
-		cin>>par;
-		G[par].push_back(i);
-	}
-	for (int i = 1; i <= n; ++i)
-	{
-		cin>>col[i];
-	}
-	dfs(1);
-	for (int i = 1; i <= n; ++i)
-	{
-		cout<<ans[i]<<" ";
-	}
-	return 0;
+int main(){
+    cin>>n>>C;
+    for(int i=2;i<=n;i++){
+        int p;
+        cin>>p;
+        adj[p].pb(i);
+    }
+    for(int i=1;i<=n;i++)
+        cin>>col[i];
+    dfs(1);
+    for(int i=1;i<=n;i++)
+        cout<<ans[i]<<" ";
+    return 0;
 }
